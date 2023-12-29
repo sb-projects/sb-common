@@ -4,8 +4,6 @@ import (
 	"context"
 	"log/slog"
 	"os"
-
-	ctxUtil "github.com/sb-projects/sb-common/util/ctx"
 )
 
 type (
@@ -34,21 +32,21 @@ func NewLogger() Logger {
 }
 
 func (l *logger) Debug(ctx context.Context, msg string, args ...any) {
-	args = append(args, ctxUtil.LogCtxFields(ctx))
+	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Debug(msg, args...)
 }
 
 func (l *logger) Info(ctx context.Context, msg string, args ...any) {
-	args = append(args, ctxUtil.LogCtxFields(ctx))
+	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Info(msg, args...)
 }
 
 func (l *logger) Warn(ctx context.Context, msg string, args ...any) {
-	args = append(args, ctxUtil.LogCtxFields(ctx))
+	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Warn(msg, args...)
 }
 
 func (l *logger) Error(ctx context.Context, msg string, args ...any) {
-	args = append(args, ctxUtil.LogCtxFields(ctx))
+	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Error(msg, args...)
 }
