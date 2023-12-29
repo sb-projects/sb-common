@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	Logger interface {
+	LoggerWrap interface {
 		Debug(context.Context, string, ...any)
 		Info(context.Context, string, ...any)
 		Warn(context.Context, string, ...any)
@@ -16,37 +16,36 @@ type (
 		// Trace(context.Context, string, ...any)
 		// Crit(context.Context, string, ...any)
 	}
-	logger struct {
+	Logger struct {
 		inner *slog.Logger
 	}
 )
 
 // NewLogger returns a logger with JSON handler and debug level
-func NewLogger() Logger {
-	return &logger{
+func NewLogger() *Logger {
+	return &Logger{
 		inner: slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 			Level: slog.LevelDebug,
-			// AddSource: true,
 		})),
 	}
 }
 
-func (l *logger) Debug(ctx context.Context, msg string, args ...any) {
+func (l *Logger) Debug(_ context.Context, msg string, args ...any) {
 	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Debug(msg, args...)
 }
 
-func (l *logger) Info(ctx context.Context, msg string, args ...any) {
+func (l *Logger) Info(_ context.Context, msg string, args ...any) {
 	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Info(msg, args...)
 }
 
-func (l *logger) Warn(ctx context.Context, msg string, args ...any) {
+func (l *Logger) Warn(_ context.Context, msg string, args ...any) {
 	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Warn(msg, args...)
 }
 
-func (l *logger) Error(ctx context.Context, msg string, args ...any) {
+func (l *Logger) Error(_ context.Context, msg string, args ...any) {
 	//args = append(args, ctxUtil.LogCtxFields(ctx))
 	l.inner.Error(msg, args...)
 }
